@@ -58,6 +58,13 @@ func (j *Js) Getdata() map[string]interface{} {
 	return nil
 }
 
+func getdata(value interface{}) map[string]interface{} {
+	if m, ok := value.(map[string]interface{}); ok {
+		return m
+	}
+	return nil
+}
+
 func (j *Js) Getmetadata() interface{} {
 	return j.data
 }
