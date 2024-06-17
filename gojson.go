@@ -58,6 +58,31 @@ func (j *Js) Getdata() map[string]interface{} {
 	return nil
 }
 
+func (j *Js) Getmetadata() interface{} {
+	return j.data
+}
+
+func (j *Js) Setmetadata(data interface{}, args ...string) *Js {
+
+	d := j
+
+	m := getdata(d.data)
+
+	argslen := len(args)
+	for i := range args {
+		if val, ok := m[args[i]]; ok {
+			if i < argslen-1 {
+				m = getdata(val)
+			} else {
+				m[args[i]] = data
+			}
+		} else {
+			return nil
+		}
+	}
+	return j
+}
+
 func (j *Js) Getindex(i int) *Js {
 
 	num := i - 1
